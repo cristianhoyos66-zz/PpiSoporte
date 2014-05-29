@@ -1,0 +1,8 @@
+	<%= @request.subject %>
+	<%= @request.date_hour %>
+	<%= @request.description %>
+	<%= @request.status %>
+	<%= link_to 'Ver todas las peticiones', requests_path%>
+	<% if can? :update, @request %>
+		<%= link_to '[Editar]', edit_request_path(@request) %></td>
+	<%end%>

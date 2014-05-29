@@ -1,0 +1,50 @@
+class RequestsController < ApplicationController
+  load_and_authorize_resource  
+  def new
+    @request = Request.new
+  end
+
+  def create
+    @request = Request.new(request_params)
+    @request.assign_attributes(user_id: current_user.id)
+    if @request.save 
+      flash[:notice] = "Se ha guardado correctamente"
+      redirect_to requests_path
+    end 
+  end
+
+  def show
+    @request = Request.find(params[:id])
+  end
+
+  def edit
+    @request = Request.find(params[:id])
+  end
+
+  def update
+    @request = Request.find(params[:id])
+    @request.assign_attributes(status: "Aprobado")
+    if @request.update_attributes(request_params)
+        flash[:notice] = "Se ha modificado correctamente"
+        redirect_to requests_path
+    end
+  end
+
+   def destroy
+    @request = Request.find(params[:id])
+    @request.destroy
+    redirect_to requests_path
+  end
+
+  def index
+    @request = Request.all
+  end
+
+  def refer
+  end
+
+  def request_params
+    params.require(:request).permit(:user_id, :date_hour, :subject, :description, :status)
+  end
+
+end

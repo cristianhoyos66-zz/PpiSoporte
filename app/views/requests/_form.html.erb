@@ -1,0 +1,8 @@
+<%= link_to 'Ver todas las peticiones', requests_path%>
+
+<%= form_for @request do |f| %>
+	Asunto: <%= f.text_field :subject %> <br> 
+	Fecha y hora: <%= f.text_field :date_hour %> <br>
+	Descripción: <%= f.text_field :description %> <br>
+	<%= f.submit %> 
+<% end %> 
