@@ -10,6 +10,8 @@ class RequestsController < ApplicationController
     if @request.save 
       flash[:notice] = "Se ha guardado correctamente"
       redirect_to requests_path
+    else
+      render action: 'new'
     end 
   end
 
