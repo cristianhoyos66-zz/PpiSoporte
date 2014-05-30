@@ -4,11 +4,16 @@
   <title>PpiSoporte</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<%=h flash[:error] %></p>
-	<%=h flash[:notice] %></p>
+	<% if flash[:notice] %>	
+		<%= flash[:notice] %>
+	<% end %>
+	<% if flash[:alert] %>
+		<%= flash[:alert] %>
+	<% end %>
 	
 	<%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete if user_signed_in? %><br>
 	<%= yield %>
