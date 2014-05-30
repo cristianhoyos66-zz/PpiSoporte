@@ -1,8 +1,15 @@
 <%= link_to 'Ver todas las peticiones', requests_path%>
 
-<%= form_for @request do |f| %>
+<%= form_for @request do |f|  %>
+ 	<% if @request.errors.any? %>
+   <ul>
+      <% @request.errors.full_messages.each do |msg| %>
+      	<li> <%= msg %> </li>
+      <% end %>
+   </ul>
+<% end %>
 	Asunto: <%= f.text_field :subject %> <br> 
-	Fecha y hora: <%= f.text_field :date_hour %> <br>
-	Descripción: <%= f.text_field :description %> <br>
+	Fecha y hora: <%= f.text_field :date_hour, value: Time.now.to_formatted_s(:db), class: 'style_date', disabled: true %> <br>
+	Descripción: <%= f.text_area :description, :rows => 3 %> <br>
 	<%= f.submit %> 
 <% end %> 
