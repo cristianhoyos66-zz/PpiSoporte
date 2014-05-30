@@ -14,5 +14,6 @@
 
  .style_date{
     border: none;
-    background-color: transparent;      
+    background-color: transparent;
+    outline: none;      
   }

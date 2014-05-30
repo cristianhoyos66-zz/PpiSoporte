@@ -14,3 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+$("#request_date_hour").keydown(function(){ 
+    return false; 
+  })

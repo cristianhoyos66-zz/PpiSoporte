@@ -6,7 +6,7 @@ class RequestsController < ApplicationController
 
   def create
     @request = Request.new(request_params)
-    @request.assign_attributes(user_id: current_user.id)
+    @request.assign_attributes(user_id: current_user.id, status: 'Pendiente')
     if @request.save 
       flash[:notice] = "Se ha guardado correctamente"
       redirect_to requests_path
@@ -25,10 +25,17 @@ class RequestsController < ApplicationController
 
   def update
     @request = Request.find(params[:id])
-    @request.assign_attributes(status: "Aprobado")
+
+    if params[:request][:status] == 'Aprobar'
+      params[:request][:status] = "Aprobado"
+    else
+       params[:request][:status] = "Rechazado"
+    end
+
+    
     if @request.update_attributes(request_params)
         flash[:notice] = "Se ha modificado correctamente"
-        redirect_to requests_path
+        redirect_to @request
     end
   end
 
