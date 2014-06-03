@@ -7,11 +7,13 @@
       	<li> <%= msg %> </li>
       <% end %>
    </ul>
-<% end %>
+  <% end %>
 	Asunto: <%= f.text_field :subject %> <br> 
 	Fecha: <% if !Request.exists?(@request)%> <%= f.text_field :date_hour, value: Time.now.to_formatted_s(:db), class: 'style_date', autocomplete:'off'%> <% else %> <%= f.text_field :date_hour, class: 'style_date', autocomplete:'off'%> <% end %> <br>
 	Descripción: <%= f.text_area :description, :rows => 3 %> <br>
 	<% if Request.exists?(@request)%> Estado: <%= @request.status %> <br>
+     Prioridad:  <%= f.select :priority, options_for_select([["Uno", 1], ["Dos", 2], ["Tres", 3], ["Cuatro", 4], ["Cinco", 5], ["Seis", 6], ["Siete", 7], ["Ocho", 8], ["Nueve", 9]]), {:include_blank => 'Seleccione'} %> <br>
+      Nivel: <%= f.select :level, options_for_select([["Uno", 1], ["Dos", 2]]), {:include_blank => 'Seleccione'}%> <br>
 		<input type="submit" name="request[status]" value="Aprobar" />
     <input type="submit" name="request[status]" value="Rechazar" /> <% else %> <%= f.submit 'Crear caso' %> <% end %> 
-<% end %> 
+  <% end %> 
