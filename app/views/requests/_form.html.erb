@@ -9,7 +9,9 @@
    </ul>
 <% end %>
 	Asunto: <%= f.text_field :subject %> <br> 
-	Fecha y hora: <%= f.text_field :date_hour, value: Time.now.to_formatted_s(:db), class: 'style_date', disabled: true %> <br>
+	Fecha: <% if !Request.exists?(@request)%> <%= f.text_field :date_hour, value: Time.now.to_formatted_s(:db), class: 'style_date', autocomplete:'off'%> <% else %> <%= f.text_field :date_hour, class: 'style_date', autocomplete:'off'%> <% end %> <br>
 	Descripción: <%= f.text_area :description, :rows => 3 %> <br>
-	<%= f.submit %> 
+	<% if Request.exists?(@request)%> Estado: <%= @request.status %> <br>
+		<input type="submit" name="request[status]" value="Aprobar" />
+    <input type="submit" name="request[status]" value="Rechazar" /> <% else %> <%= f.submit 'Crear caso' %> <% end %> 
 <% end %> 

@@ -15,6 +15,6 @@
 	
 	<%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete if user_signed_in? %><br>
 	<%= yield %>
-
+	<%= javascript_include_tag "application" %>
 </body>
 </html>
