@@ -30,6 +30,8 @@ class RequestsController < ApplicationController
       params[:request][:status] = "Aprobado"
     else
        params[:request][:status] = "Rechazado"
+       params[:request][:level] = nil
+       params[:request][:priority] = nil
     end
 
     
@@ -50,10 +52,11 @@ class RequestsController < ApplicationController
   end
 
   def refer
+
   end
 
   def request_params
-    params.require(:request).permit(:user_id, :date_hour, :subject, :description, :status)
+    params.require(:request).permit(:user_id, :date_hour, :subject, :description, :status, :priority, :level)
   end
 
 end
