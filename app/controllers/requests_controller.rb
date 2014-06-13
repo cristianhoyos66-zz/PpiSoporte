@@ -48,7 +48,18 @@ class RequestsController < ApplicationController
   end
 
   def index
-    @request = Request.all
+    level = params[:level] 
+    level_int = level.to_i
+    case  level_int
+      when 1  
+        @request = Request.where(level: 1) 
+      when 2  
+        @request = Request.where(level: 2)
+      when 3
+        @request = Request.where(user_id: current_user)
+      else 
+        @request = Request.all
+    end   
   end
 
   def refer
