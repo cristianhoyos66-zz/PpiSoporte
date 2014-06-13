@@ -4,10 +4,10 @@
 	<%= request.description %>
 	<%= request.status %>
 	<% if can? :destroy, request %>
-		<%= link_to '[Eliminar]', request, method: :delete, data: { confirm: '¿Estás seguro?' } %>
+	<%= link_to '[Eliminar]', request, method: :delete, data: { confirm: '¿Estás seguro?' } %>
 	<%end%>
 	<%= link_to '[Mostrar]', request %>
-<% end %>
-<% if can? :create, @request %>
+	<% end %>
+	<% if can? :create, @request %>
 	<%= link_to 'Crear una petición', new_request_path %>
 <% end %>

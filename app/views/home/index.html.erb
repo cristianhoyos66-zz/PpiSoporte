@@ -1,2 +1,10 @@
-<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path %> <br>
+<% unless current_user.has_role? :requester %>
+	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 1', requests_path(level: 1) %> <br>
+	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 2', requests_path(level: 2) %> <br>
+	<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path %>
+<% else %>
+	<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path(level: 3) %>
+<% end %>
+
+
 
