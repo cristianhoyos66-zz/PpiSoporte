@@ -12,8 +12,13 @@
 	Fecha: <% if !Request.exists?(@request)%> <%= f.text_field :date_hour, value: Time.now.to_formatted_s(:db), class: 'style_date', autocomplete:'off'%> <% else %> <%= f.text_field :date_hour, class: 'style_date', autocomplete:'off'%> <% end %> <br>
 	Descripción: <%= f.text_area :description, :rows => 3 %> <br>
 	<% if Request.exists?(@request)%> Estado: <%= @request.status %> <br>
-     Prioridad:  <%= f.select :priority, options_for_select([["Uno", 1], ["Dos", 2], ["Tres", 3], ["Cuatro", 4], ["Cinco", 5], ["Seis", 6], ["Siete", 7], ["Ocho", 8], ["Nueve", 9]]), {:include_blank => 'Seleccione'} %> <br>
-      Nivel: <%= f.select :level, options_for_select([["Uno", 1], ["Dos", 2]]), {:include_blank => 'Seleccione'}%> <br>
-		<input type="submit" name="request[status]" value="Aprobar" />
+    <% if @request.level? && @request.priority? %>
+      Prioridad:  <%= f.select :priority, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9]]), {:include_blank => @request.priority.to_s}%> <br>
+      Nivel: <%= f.select :level, options_for_select([[1, 1], [1, 2]]), {:include_blank => @request.level.to_s}%> <br>
+    <% else %>
+      Prioridad:  <%= f.select :priority, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9]]), {:include_blank => '- Seleccione -'}%> <br>
+      Nivel: <%= f.select :level, options_for_select([[1, 1], [2, 2]]), {:include_blank => '- Seleccione -'}%> <br>
+    <% end %>
+    <input type="submit" name="request[status]" value="Aprobar" />
     <input type="submit" name="request[status]" value="Rechazar" /> <% else %> <%= f.submit 'Crear caso' %> <% end %> 
   <% end %> 
