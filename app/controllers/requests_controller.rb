@@ -30,8 +30,6 @@ class RequestsController < ApplicationController
       params[:request][:status] = "Aprobado"
     else
        params[:request][:status] = "Rechazado"
-       params[:request][:level] = nil
-       params[:request][:priority] = nil
     end
 
     
@@ -51,14 +49,34 @@ class RequestsController < ApplicationController
     level = params[:level] 
     level_int = level.to_i
     case  level_int
-      when 1  
-        @request = Request.where(level: 1) 
-      when 2  
+      when 1
+        if current_user.has_role? :admin1ernivel or current_user.has_role? :admin      
+          @request = Request.where(level: 1) 
+        else
+          flash[:error] = "No tienes permiso para ver este recurso"
+          redirect_to root_url
+        end
+      when 2
+      if current_user.has_role? :admin2donivel or current_user.has_role? :admin     
         @request = Request.where(level: 2)
+      else
+          flash[:error] = "No tienes permiso para ver este recurso"
+          redirect_to root_url
+        end
       when 3
-        @request = Request.where(user_id: current_user)
+        unless (current_user.has_role? :admin1ernivel or current_user.has_role? :admin2donivel or current_user.has_role? :admin)
+          @request = Request.where(user_id: current_user)
+        else
+          flash[:error] = "No tienes permiso para ver este recurso"
+          redirect_to root_url
+        end 
       else 
-        @request = Request.all
+        if current_user.has_role? :admin    
+          @request = Request.all
+        else
+          flash[:error] = "No tienes permiso para ver este recurso"
+          redirect_to root_url
+        end
     end   
   end
 

@@ -2,6 +2,9 @@
 	<%= @request.date_hour %>
 	<%= @request.description %>
 	<%= @request.status %>
+	<%= @request.priority %>
+	<%= @request.level %>
+
 	<%= link_to 'Volver al menú', root_path%>
 	<% if can? :update, @request %>
 		<%= link_to '[Editar]', edit_request_path(@request) %></td>
