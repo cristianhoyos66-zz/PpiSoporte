@@ -12,8 +12,40 @@
  *= require_tree .
  */
 
+ html{
+ 	text-rendering: optimizeLegibility;
+ 	font-family: 'Questrial', sans-serif;
+ }
  .style_date{
     border: none;
     background-color: transparent;
     outline: none;      
   }
+
+  div.login_panel{
+  	width:400px;
+    height:360px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    margin:-185px 0 0 -200px;
+    border: 1px solid #6C705F;
+    box-shadow: 0 0 25px #A29FA0;
+    border-radius: 5px;    
+  }
+
+  div.login_panel .title{
+  	top: 0;
+  	width: 100%;
+  	height: 50px;
+  	border-radius: 3px;  	
+  }
+
+div.login_panel .title h2{
+	text-align: center;
+}
+
+  div.login_panel .form_login{
+  	margin:20px;  	 	
+  }
+
