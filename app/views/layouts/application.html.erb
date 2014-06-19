@@ -4,10 +4,14 @@
   <title>PpiSoporte</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %> 
   <%= csrf_meta_tags %>
-  <link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+
+  	<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+  	<script src="https://cdn.firebase.com/js/client/1.0.15/firebase.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+	<script> var slide = angular.module("chat", ["firebase"]); </script>
 </head>
-<body>
-	<!---
+<body ng-app="chat">
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -32,8 +36,7 @@
       		</ul>
     		</div>
 		</div>
-	</nav>
-	-->
+	</nav> 
 	<% if flash[:notice] %>	
 		<%= flash[:notice] %>
 	<% end %>

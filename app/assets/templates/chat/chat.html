@@ -1,0 +1,17 @@
+<div class="chat">
+    Nombre: <input type="text" ng-model="username">
+    <hr>
+  <div ng-cloak ng-repeat="message in messages">
+    <div class="talk-bubble" ng-class-odd="'tri-right left-in'"  ng-class-even="'tri-right rightside right-in'">
+      <div class="talktext">
+      <p>{{message.from}}:{{message.content}}</p>
+      </div>
+    </div>
+  </div><br/>
+    <form ng-submit="addMessage()" >      
+    <input type="text" ng-model="message" placeholder="Mensaje...">
+    <button class="btn" type="submit">
+      <i class="icon-reply"> Enviar</i>
+    </button>
+    </form>
+</div>

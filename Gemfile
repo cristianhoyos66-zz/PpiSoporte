@@ -37,3 +37,5 @@ gem 'devise'
 gem 'rolify'
 
 gem 'cancancan', '~> 1.8'
+
+gem 'jquery-rails','3.0.4'
