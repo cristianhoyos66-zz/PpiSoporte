@@ -1,0 +1,9 @@
+	<%= @user.email%>
+	<%= @user.sign_in_count %>
+	<%= @user.roles.first.name %>
+	
+	<%= link_to 'Volver al menú', root_path%>
+	<% if can? :update, @user %>
+		<%= link_to '[Editar]', edit_user_path(@user) %></td>
+	<%end%>
+	

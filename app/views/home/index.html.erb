@@ -1,7 +1,8 @@
 <% if current_user.has_role? :admin %>
 	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 1', requests_path(level: 1) %> <br>
 	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 2', requests_path(level: 2) %> <br>
-	<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path %>
+	<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path %> <br>
+	<%= link_to 'Manejar roles', users_path %>
 <% elsif current_user.has_role? :admin1ernivel %>
 	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 1', requests_path(level: 1) %> <br>
 <% elsif current_user.has_role? :admin2donivel %>
