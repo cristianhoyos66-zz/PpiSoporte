@@ -28,9 +28,12 @@ class RequestsController < ApplicationController
 
     if params[:request][:status] == 'Aprobar'
       params[:request][:status] = "Aprobado"
-    else
+    elsif params[:request][:status] == 'Rechazado'
        params[:request][:status] = "Rechazado"
+    else
+      params[:request][:status] = "Terminado"
     end
+
 
     
     if @request.update_attributes(request_params)
