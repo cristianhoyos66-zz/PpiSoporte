@@ -9,6 +9,6 @@ class RequestMailer < ActionMailer::Base
 
 	def update_case_confirmation(request, user)
 		@request = request
-		mail :to => user, :subject => "Creación caso en mesa de ayuda"
+		mail :to => user, :subject => "Actualización caso en mesa de ayuda"
 	end
 end
