@@ -1,17 +1,139 @@
-<% if current_user.has_role? :admin %>
-	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 1', requests_path(level: 1) %> <br>
-	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 2', requests_path(level: 2) %> <br>
-	<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path %>
-<% elsif current_user.has_role? :admin1ernivel %>
-	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 1', requests_path(level: 1) %> <br>
-<% elsif current_user.has_role? :admin2donivel %>
-	<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 2', requests_path(level: 2) %> <br>
-<% else %>
-	<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path(level: 3) %>
-<% end %>
-<hr>
 
-<chat></chat>
+<script>
+	$(document).ready(function(){
+  
+    $('#pie_status').highcharts({
+        chart: {
+            type: 'pie',
+            options3d: {
+        enabled: true,
+                alpha: 45,
+                beta: 0
+            }
+        },
+        title: {
+            text: 'Estado de las Solicitudes'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}'
+                }
+            }
+        },
+        series: [{
+            type: 'pie',
+            name: 'Total:',
+            data: [
+                {name: 'Aprobados', 
+                	y: <%=@request_aproved%>,
+                	color: '#0074D9'
+                },
+                {name: 'Rechazados', 
+                	y: <%=@request_rejected%>,
+                	color: '#FF4136'
+                },                
+                {name: 'Finalizados', 
+                	y: <%=@request_ended%>,
+                	color: '#01FF70' 
+                },
+                {name: 'Pendientes',
+                	y: <%=@request_n_esta%>,
+                	color: '#FF851B'
+                }
+                            ]
+        }]
+    });
 
+})
+</script>
+<div class="index_panel">
+	<div class="row">
+		<div class="col-lg-6" style="min-height:400px; ">
+			<h2>
+				Solicitudes, Requerimientos o Problemas
+			</h2>
+			<table class="table table-striped">
+				<thead>
+					<td>
+						Asunto
+					</td>
+					<td>
+						Descripción
+					</td>
+					<td>
+						Estado
+					</td>
+					<td>
+						Solicitado el
+					</td>
+					<%if current_user.has_role? :admin or current_user.has_role? :admin1ernivel or current_user.has_role? :admin2donivel%>
+						<td>
+							Prioridad	
+						</td>
+					<%end%>
+				</thead>
+				<tbody>
+					<% @requests.each do |request| %>
+						<tr>
+							<td>
+								<%=request.subject%>
+							</td>
+							<td>
+								<%=request.description%>
+							</td>
+							<td>
+								<%=request.status%>
+							</td>
+							<td>
+								<%=request.created_at%>
+							</td>
+							<%if current_user.has_role? :admin or current_user.has_role? :admin1ernivel or current_user.has_role? :admin2donivel%>
+								<td>
+									<%=request.priority%>
+								</td>
+							<% end %>
+							<td>
+								<%= link_to 'Detalles', request, :class => 'btn btn-primary' %>
+							</td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-lg-5" style="min-height:400px; margin-left: 10px;">
+		<h2>
+			Mensajería Instantánea
+		</h2>
+		<!--
+		<% if current_user.has_role? :admin %>
+		<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 1', requests_path(level: 1) %> <br>
+		<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 2', requests_path(level: 2) %> <br>
+		<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path %>
+		<% elsif current_user.has_role? :admin1ernivel %>
+		<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 1', requests_path(level: 1) %> <br>
+		<% elsif current_user.has_role? :admin2donivel %>
+		<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 2', requests_path(level: 2) %> <br>
+		<% else %>
+		<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path(level: 3) %>
+		<% end %>
+		-->
+		<hr>
+		<chat></chat>
+		</div>
+	</div>
+	<div class="row">
+		<div id="pie_status">
+
+		</div>
+	</div>
+</div>
 
 

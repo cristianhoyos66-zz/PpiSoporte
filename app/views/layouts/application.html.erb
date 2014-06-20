@@ -4,8 +4,7 @@
   <title>PpiSoporte</title>
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %> 
   <%= csrf_meta_tags %>
-
-  	<link href='http://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+  	
   	<script src="https://cdn.firebase.com/js/client/1.0.15/firebase.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
 	<script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
@@ -24,19 +23,43 @@
       		<a class="navbar-brand" href="#">PPI SOPORTE</a>
     		</div>
     		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      		<% if current_user != nil %>
       		<ul class="nav navbar-nav">
-        		<li class="active"><%= link_to 'Consultar requerimientos incidentes o problemas', requests_path(level: 1) %></li>
-        		<li><a href="#">Link</a></li>        
-      		</ul>      
-      		<ul class="nav navbar-nav navbar-right">
-        		<li><a href="#">Link</a></li>
-        		<li class="dropdown">
-          		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>          	
-        	</li>
+        		
+        		<li>
+        	<% if current_user.has_role? :admin %>						
+						<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path %>
+					<% elsif current_user.has_role? :admin1ernivel %>
+						<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 1', requests_path(level: 1) %> <br>
+					<% elsif current_user.has_role? :admin2donivel %>
+						<%= link_to 'Consultar requerimientos, incidentes o problemas de nivel 2', requests_path(level: 2) %> <br>
+					<% else %>
+						<%= link_to 'Consultar requerimientos, incidentes o problemas', requests_path(level: 3) %>
+					<% end %>
+          <li>
+            <%= link_to 'BD de conocimiento' %>
+          </li>
+          <li>
+            <%= link_to 'FAQ' %>
+          </li>
+				</li>       		        
       		</ul>
+
+      		<ul class="nav navbar-nav navbar-right">        		
+        		<li class="dropdown">
+          			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=current_user.email%> <b class="caret"></b></a>
+          			<ul class="dropdown-menu">            			
+            			<li><a href="#">Mi Cuenta<span class="glyphicon glyphicon-user" style="margin-left:5px;"></span></a></li>
+            			<li class="divider"></li>
+            			<li><a href="/users/sign_out">Cerrar Sesión<span class="glyphicon glyphicon-off" style="margin-left:5px;"></span></a></li>
+          			</ul>          	
+        		</li>
+      		</ul>
+      		<% end %>
     		</div>
 		</div>
-	</nav> 
+	</nav>
+
 	<% if flash[:notice] %>	
 		<%= flash[:notice] %>
 	<% end %>
@@ -45,7 +68,15 @@
 	<% end %>
 	
 	<%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete if user_signed_in? %><br>
+ 
+  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "bootstrap" %>
+  
 	<%= yield %>
-	<%= javascript_include_tag "application" %>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://code.highcharts.com/highcharts-3d.js"></script>
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+
 </body>
 </html>
