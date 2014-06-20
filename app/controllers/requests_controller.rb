@@ -9,6 +9,7 @@ class RequestsController < ApplicationController
     @request.assign_attributes(user_id: current_user.id, status: 'Pendiente')
     if @request.save 
       flash[:notice] = "Se ha guardado correctamente"
+      Request.create_case_confirmation @request
       redirect_to requests_path
     else
       render action: 'new'
@@ -24,23 +25,27 @@ class RequestsController < ApplicationController
   end
 
   def update
-    @request = Request.find(params[:id])
+  @request = Request.find(params[:id])
 
     if params[:request][:status] == 'Aprobar'
       params[:request][:status] = "Aprobado"
     elsif params[:request][:status] == 'Rechazar'
        params[:request][:status] = "Rechazado"
+        params[:request][:level] = nil
+        params[:request][:priority] = nil
     else
       params[:request][:status] = "Terminado"
+      params[:request][:level] = nil
+      params[:request][:priority] = nil
     end
 
 
     
     if @request.update_attributes(request_params)
         flash[:notice] = "Se ha modificado correctamente"
+        Request.update_case_confirmation @request
         redirect_to @request
     end
-  end
 
    def destroy
     @request = Request.find(params[:id])
