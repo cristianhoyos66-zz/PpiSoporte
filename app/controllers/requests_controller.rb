@@ -46,6 +46,7 @@ class RequestsController < ApplicationController
         Request.update_case_confirmation @request
         redirect_to @request
     end
+  end
 
    def destroy
     @request = Request.find(params[:id])
