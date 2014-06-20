@@ -28,7 +28,7 @@ class RequestsController < ApplicationController
 
     if params[:request][:status] == 'Aprobar'
       params[:request][:status] = "Aprobado"
-    elsif params[:request][:status] == 'Rechazado'
+    elsif params[:request][:status] == 'Rechazar'
        params[:request][:status] = "Rechazado"
     else
       params[:request][:status] = "Terminado"
