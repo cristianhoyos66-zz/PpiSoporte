@@ -42,8 +42,13 @@
             <%= link_to 'BD de conocimiento' %>
           </li>
           <li>
-            <%= link_to 'FAQ' %>
+            <%= link_to 'FAQ', faqs_path%>
           </li>
+          <%if current_user.has_role? :admin%>
+          <li>
+             <%= link_to 'Gestión de Usuarios', users_path %>
+          </li>
+          <% end %>
 				</li>       		        
       		</ul>
 

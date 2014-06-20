@@ -1,9 +1,41 @@
-	<%= @user.email%>
-	<%= @user.sign_in_count %>
-	<%= @user.roles.first.name %>
+
+<div class="index_panel">
+
+	<div class="col-lg-6" style="margin-left:20px;">	
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Correo Electroníco:</b>
+		<%= @user.email%></h4>
+	</div>
 	
-	<%= link_to 'Volver al menú', root_path%>
-	<% if can? :update, @user %>
-		<%= link_to '[Editar]', edit_user_path(@user) %></td>
-	<%end%>
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Total Inicios de Sesión</b>
+		<%= @user.sign_in_count %></h4>
+	</div>
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Perfil:</b>
+		<% if @user.roles.first.name == "requester" %>
+			<%= "Solicitante" %>
+		<%elsif @user.roles.first.name == "admin1ernivel" %>
+			<%= "Administrador 1er Nivel" %>
+		<%elsif @user.roles.first.name == "admin2donivel"%>
+			<%= "Administrador 2do Nivel" %>
+		<%elsif%>
+			<%= "Super Administrador" %>
+		<%else%>
+			<%= ""%>
+		<% end %></h4>
+	</div>	
 	
+
+	<span>
+		<%= link_to 'Volver al menú', root_path, :class => 'btn btn-primary'%>
+		<% if can? :update, @user %>		
+			<%= link_to 'Editar', edit_user_path(@user), :class => 'btn btn-warning' %></td>
+		<%end%>
+		<% if can? :delete, @user %>		
+			<%= link_to 'Eliminar', user_path, method: :delete, data: { confirm: '¿Estás seguro?' }, :class => 'btn btn-danger' %>
+		<%end%>		
+	</span>
+	</div>
+	
+</div>

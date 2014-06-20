@@ -9,11 +9,12 @@ class Ability
     if user.has_role? :admin or user.has_role? :admin1ernivel or user.has_role? :admin2donivel 
         can :manage, Request
         can :manage, User
+        can :manage, Faq
         cannot :destroy, User, id: user.id 
         cannot :create, Request   
     else
         can :read, :all
-        can :create, :all
+        can :create, Request
     end
     #
     # The first argument to `can` is the action you are giving the user 

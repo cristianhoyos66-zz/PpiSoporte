@@ -1,0 +1,30 @@
+<div class="index_panel">
+<h1>Preguntas Frecuentes (FAQ)</h1>
+
+
+
+    <% @faqs.each do |faq| %>
+      <div class="row">
+        <div class="title_faq">
+          <h2> <%= link_to faq.question, faq %> </h2>
+        </div>
+        <div>        
+        <h5>
+          <%= faq.answer %>
+        </h5>
+      </div>
+        <%= link_to 'Mostrar', faq %>
+        <% if can? :update, faq%>
+          <%= link_to 'Editar', edit_faq_path(faq) %>
+        <% end %>
+        <% if can? :Destroy, faq %>
+          <%= link_to 'Eliminar', faq, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+        </div>
+        <% if can? :create, faq %>
+    <%= link_to 'Crear una petición', new_faq_path %></td>
+  <% end %>
+    <% end %>
+  
+
+

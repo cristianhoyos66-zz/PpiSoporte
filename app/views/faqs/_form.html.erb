@@ -1,0 +1,28 @@
+<div class="index_panel">
+  <%= form_for(@faq) do |f| %>
+    <% if @faq.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@faq.errors.count, "error") %> prohibited this faq from being saved:</h2>
+        <ul>
+        <% @faq.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="col-lg-8">
+    <div class="form-group">
+      <%= f.label :question, "Pregunta" %><br>
+      <%= f.text_field :question, :class => 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :answer, "Respuesta" %><br>
+      <%= f.text_area :answer, :class => 'form-control'%>
+    </div>
+    <div class="actions">
+      <%= f.submit "Enviar" , :class => 'btn btn-primary' %>
+      <%= link_to 'Volver', faqs_path, :class => 'btn btn-primary' %>
+    </div>
+    </div>
+  <% end %>
+</div>

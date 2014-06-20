@@ -1,5 +1,7 @@
 PpiSoporte::Application.routes.draw do
   
+  resources :faqs
+
   get "home/index"
   resources :requests
   get "request/refer" => "requests#refer"
