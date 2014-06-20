@@ -30,10 +30,10 @@
 	</div>
 	<div class="row" style="margin-bottom:20px;">
 		<h4><b>Nivel:</b>
-		<%if @request.priority.nil?%>
+		<%if @request.level.nil?%>
 			No establecido
 		<%else%>
-			<%= @request.priority %>
+			<%= @request.level %>
 		<% end %>
 		</h4>
 	</div>
