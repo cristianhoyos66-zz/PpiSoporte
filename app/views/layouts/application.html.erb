@@ -52,7 +52,11 @@
           			<ul class="dropdown-menu">            			
             			<li><a href="#">Mi Cuenta<span class="glyphicon glyphicon-user" style="margin-left:5px;"></span></a></li>
             			<li class="divider"></li>
-            			<li><a href="/users/sign_out">Cerrar Sesión<span class="glyphicon glyphicon-off" style="margin-left:5px;"></span></a></li>
+            	     <li>
+                    <%= link_to destroy_user_session_path, method: :delete  do %>
+                    Cerrar sesión<span class="glyphicon glyphicon-off" style="margin-left:5px;"></span>
+                    <% end %>
+                  </li>
           			</ul>          	
         		</li>
       		</ul>
@@ -69,7 +73,6 @@
 		<%= flash[:alert] %>
 	<% end %>
 	
-	<%= link_to "Cerrar Sesión", destroy_user_session_path, method: :delete if user_signed_in? %><br>
  
   <%= javascript_include_tag "application" %>
   <%= javascript_include_tag "bootstrap" %>
