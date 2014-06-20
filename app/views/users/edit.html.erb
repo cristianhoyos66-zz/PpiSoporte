@@ -1,0 +1,5 @@
+<%= form_for @user do |f|  %>
+		<%= f.select :role, Role.bases.collect { |r| [ r.name, r.name ]}, { :include_blank => '- Seleccione Rol -' }, :required => 'true' %>
+      <%= hidden_field_tag 'role_name', @user.role.try(:name) %>   
+	<%= f.submit 'Actualizar rol' %> 
+<% end %>

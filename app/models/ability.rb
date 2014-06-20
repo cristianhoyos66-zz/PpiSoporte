@@ -5,8 +5,11 @@ class Ability
     # Define abilities for the passed in user here. For example:
     #
     user ||= User.new  
+    
     if user.has_role? :admin or user.has_role? :admin1ernivel or user.has_role? :admin2donivel 
         can :manage, Request
+        can :manage, User
+        cannot :destroy, User, id: user.id 
         cannot :create, Request   
     else
         can :read, :all

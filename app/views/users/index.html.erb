@@ -1,0 +1,9 @@
+<% @user.each do |user| %>
+	<%= user.email %>
+	<%= user.sign_in_count %>
+	<%= user.roles.first.name %>
+	<% if can? :destroy, user %>
+	<%= link_to '[Eliminar]', user, method: :delete, data: { confirm: '¿Estás seguro?' } %>
+	<%end%>
+	<%= link_to '[Mostrar]', user %>
+<% end %>
