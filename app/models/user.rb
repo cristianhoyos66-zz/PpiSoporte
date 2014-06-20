@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 	has_many :requests
 
 	def assign_default_role
-		add_role(:admin)
+		add_role(:requester)
 	end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
