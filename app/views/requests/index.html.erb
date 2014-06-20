@@ -1,13 +1,50 @@
-<% @request.each do |request| %>
-	<%= request.subject %>
-	<%= request.date_hour %>
-	<%= request.description %>
-	<%= request.status %>
-	<% if can? :destroy, request %>
-	<%= link_to '[Eliminar]', request, method: :delete, data: { confirm: '¿Estás seguro?' } %>
-	<%end%>
-	<%= link_to '[Mostrar]', request %>
+<div class="index_panel">
+	<h2>
+		Requerimientos, Incidentes o Problemas
+	</h2>
+	<table class="table table-striped">
+		<thead>
+			<td>Asunto</td>
+			<td>Descripción</td>
+			<td>Estado</td>
+			<td>Fecha Solicitud</td>
+			<% if current_user.has_role? :admin or current_user.has_role? :admin1ernivel or current_user.has_role? :admin2donivel %>
+				<td>Prioridad</td>
+			<% end %>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	<% @request.each do |request| %>
+		<tr>
+		<td><%= request.subject %></td>
+		<td><%= request.description %></td>
+		<td><%= request.status %></td>
+		<td><%= request.date_hour %></td>
+		<% if current_user.has_role? :admin or current_user.has_role? :admin1ernivel or current_user.has_role? :admin2donivel %>
+				<td>
+					<% if request.priority.nil?%>
+					<%= "No establecida"%>
+					<%else%>
+					<%=request.priority %>
+					<% end%>
+				</td>
+		<% end %>		
+		<td>
+			<%= link_to 'Mostrar', request, :class => 'btn btn-primary' %>
+			<% if can? :update, request %>
+				<%= link_to 'Editar', edit_request_path(request), :class => 'btn btn-warning' %>
+			<%end%>
+			<% if can? :destroy, request %>
+				<%= link_to 'Eliminar', request, method: :delete, data: { confirm: '¿Estás seguro?' }, :class => 'btn btn-danger' %>
+			<%end%>
+			
+		</td>
+			
+		</tr>
 	<% end %>
-	<% if can? :create, @request %>
-	<%= link_to 'Crear una petición', new_request_path %>
-<% end %>
+	<td><% if can? :create, @request %>
+		<%= link_to 'Crear una petición', new_request_path %></td>
+	<% end %>
+	</table>
+</div>

@@ -16,8 +16,16 @@ class RequestsController < ApplicationController
   end
 
   def show
-    @request = Request.find(params[:id])
-  end
+    if current_user.has_role? :admin
+     @request = Request.find(params[:id])
+    elsif current_user.has_role? :admin1ernivel
+      @request = Request.where(level: 1).find(params[:id])
+    elsif current_user.has_role? :admin2donivel
+      @request = Request.where(level: 1).find(params[:id])
+    elsif current_user.has_role? :requester
+      @request = Request.where(user_id: current_user)
+    end
+  end 
 
   def edit
     @request = Request.find(params[:id])
@@ -45,6 +53,7 @@ class RequestsController < ApplicationController
    def destroy
     @request = Request.find(params[:id])
     @request.destroy
+    flash[:notice] = "Se ha eliminado correctamente"
     redirect_to requests_path
   end
 

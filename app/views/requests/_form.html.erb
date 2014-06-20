@@ -1,6 +1,7 @@
+<div class="index_panel">
 <%= link_to 'Ver todas las peticiones', requests_path%>
-
-<%= form_for @request do |f|  %>
+<div style="margin: 0 auto;">
+<%= form_for @request, :html => {:role =>'form'} do |f|  %>
  	<% if @request.errors.any? %>
    <ul>
       <% @request.errors.full_messages.each do |msg| %>
@@ -8,19 +9,53 @@
       <% end %>
    </ul>
   <% end %>
-	Asunto: <%= f.text_field :subject %> <br> 
-	Fecha: <% if !Request.exists?(@request)%> <%= f.text_field :date_hour, value: Time.now.to_formatted_s(:db), class: 'style_date', autocomplete:'off'%> <% else %> <%= f.text_field :date_hour, class: 'style_date', autocomplete:'off'%> <% end %> <br>
-	Descripción: <%= f.text_area :description, :rows => 3 %> <br>
-	<% if Request.exists?(@request)%> Estado: <%= @request.status %> <br>
-    <% if @request.level? && @request.priority? %>
-      Prioridad:  <%= f.select :priority, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9]]), {:include_blank => @request.priority.to_s}%> <br>
-      Nivel: <%= f.select :level, options_for_select([[1, 1], [1, 2]]), {:include_blank => @request.level.to_s}%> <br>
-    <% else %>
-      Prioridad:  <%= f.select :priority, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9]]), {:include_blank => '- Seleccione -'}%> <br>
-      Nivel: <%= f.select :level, options_for_select([[1, 1], [2, 2]]), {:include_blank => '- Seleccione -'}%> <br>
+  <div class="col-lg-8" style="float:center;">
+  <div class="form-group">
+	  <%= f.label :subject, "Asunto:"%> 
+    <%= f.text_field :subject, :class =>'form-control' %>
+  </div> 
+  <div class="form-group">
+	  <%= f.label :date_hour, "Fecha:"%> 
+    <% if !Request.exists?(@request)%> 
+      <%= f.text_field :date_hour, value: Time.now.to_formatted_s(:db), class: 'style_date form-control', autocomplete:'off'%> 
+    <% else %> 
+      <%= f.text_field :date_hour, class: 'style_date form-control', autocomplete:'off'%> 
     <% end %>
-    <input type="submit" name="request[status]" value="Aprobar" />
-    <input type="submit" name="request[status]" value="Rechazar" /> 
-    <input type="submit" name="request[status]" value="Terminar" />
-    <% else %> <%= f.submit 'Crear caso' %> <% end %> 
+  </div>
+  <div class="form-group">
+    <%= f.label :description, "Descripción:"%>	 
+    <%= f.text_area :description, :rows => 3, :class => 'form-control'%> 
+  </div>
+	<% if Request.exists?(@request)%> 
+  <div class="form-group"> 
+    <b>Estado:</b><br>
+    <%= @request.status %>
+  </div>
+    <% if @request.level? && @request.priority? %>
+     <div class="form-group">
+      <%= f.label :priority, "Prioridad:"%>      
+      <%= f.select :priority, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9]]), {:include_blank => @request.priority.to_s}, :class => 'form-control'%> 
+    </div>
+    <div class="form-group">
+      <%= f.label :level, "Nivel:"%>  
+      <%= f.select :level, options_for_select([[1, 1], [1, 2]]), {:include_blank => @request.level.to_s}, :class => 'form-control'%>
+    </div>
+    <% else %>
+      <div class="form-group">
+        <%= f.label :priority, "Prioridad:"%> 
+        <%= f.select :priority, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7], [8, 8], [9, 9]]), {:include_blank => '- Seleccione -'}, :class => 'form-control'%> 
+      </div>
+      <div class="form-group">
+      <%= f.label :level, "Nivel:"%>
+      <%= f.select :level, options_for_select([[1, 1], [2, 2]]), {:include_blank => '- Seleccione -'}, :class => 'form-control'%>
+      </div>
+    <% end %>
+    
+    <input type="submit" name="request[status]" value="Aprobar" class="btn btn-primary" />
+    <input type="submit" name="request[status]" value="Rechazar" class="btn btn-danger" /> 
+    <input type="submit" name="request[status]" value="Terminar" class="btn btn-success" />
+    <% else %> <%= f.submit 'Crear caso', :class => 'btn btn-primary' %> <% end %> 
   <% end %> 
+  </div>
+  </div>
+  </div>

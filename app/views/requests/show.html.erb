@@ -1,12 +1,51 @@
-	<%= @request.subject %>
-	<%= @request.date_hour %>
-	<%= @request.description %>
-	<%= @request.status %>
-	<%= @request.priority %>
-	<%= @request.level %>
+<div class="index_panel">
 
-	<%= link_to 'Volver al menú', root_path%>
-	<% if can? :update, @request %>
-		<%= link_to '[Editar]', edit_request_path(@request) %></td>
-	<%end%>
+	<div class="col-lg-6" style="margin-left:20px;">	
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Fecha Solicitud:</b>
+		<%= @request.date_hour %></h4>
+	</div>
 	
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Asunto:</b>
+		<%= @request.subject %></h4>
+	</div>
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Descripción:</b>
+		<%= @request.description %></h4>
+	</div>
+	
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Estado:</b>
+		<%= @request.status %></h4>
+	</div>
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Prioridad:</b>
+		<%if @request.priority.nil?%>
+			No establecido
+		<%else%>
+			<%= @request.priority %>
+		<% end %>
+		</h4>
+	</div>
+	<div class="row" style="margin-bottom:20px;">
+		<h4><b>Nivel:</b>
+		<%if @request.priority.nil?%>
+			No establecido
+		<%else%>
+			<%= @request.priority %>
+		<% end %>
+		</h4>
+	</div>
+	<span>
+	<%= link_to 'Regresar', request_path, :class => 'btn btn-primary' %>
+	<% if can? :update, @request %>
+		<%= link_to 'Editar', edit_request_path(@request), :class => 'btn btn-warning' %></td>
+	<%end%>
+	<% if can? :destroy, @request %>
+		<%= link_to 'Eliminar', request_path, method: :delete, data: { confirm: '¿Estás seguro?' }, :class => 'btn btn-danger' %>
+	<%end%>
+	</span>
+	</div>
+	
+</div>
